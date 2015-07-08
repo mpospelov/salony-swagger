@@ -183,6 +183,9 @@
                 }
             },
             "post": {
+                "tags": [
+                    "V1"
+                ],
                 "description": "Add `Salon` to `User` favorite list\n",
                 "parameters": [
                     {
@@ -302,6 +305,9 @@
         },
         "/v1/appointments/{id}": {
             "delete": {
+                "tags": [
+                    "V1"
+                ],
                 "description": "Cancel `User` `Appointment` \n",
                 "parameters": [
                     {
@@ -321,6 +327,9 @@
         },
         "/v1/salony": {
             "get": {
+                "tags": [
+                    "V1"
+                ],
                 "description": "List of `Salon`y.\nIf filters are passed then you will receive filtered\nlist of `Salon`y.\n",
                 "parameters": [
                     {
@@ -371,6 +380,9 @@
         },
         "/v1/salony/{id}": {
             "get": {
+                "tags": [
+                    "V1"
+                ],
                 "description": "Details of concrete `Salon`\n",
                 "parameters": [
                     {
@@ -392,6 +404,9 @@
         },
         "/v1/salony/{id}/book": {
             "post": {
+                "tags": [
+                    "V1"
+                ],
                 "description": "Book list of selected `Services`\n",
                 "parameters": [
                     {
