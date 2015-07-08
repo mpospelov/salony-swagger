@@ -35,9 +35,69 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful response. `User` is created",
+                        "description": "`User` is created.\n",
                         "schema": {
                             "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/login": {
+            "post": {
+                "tags": [
+                    "V1"
+                ],
+                "description": "Login `User` with phone and password.\n",
+                "parameters": [
+                    {
+                        "name": "mobile_number",
+                        "required": true,
+                        "in": "formData",
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "required": true,
+                        "in": "formData",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful.",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/reset_password": {
+            "post": {
+                "tags": [
+                    "V1"
+                ],
+                "description": "Send reset password request.\n",
+                "parameters": [
+                    {
+                        "name": "mobile_number",
+                        "required": true,
+                        "in": "formData",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request sended successfuly.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "default": "You should receive SMS with your new password\n"
+                                }
+                            }
                         }
                     }
                 }
