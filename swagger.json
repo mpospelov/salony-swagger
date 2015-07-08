@@ -4,9 +4,18 @@
         "version": "0.1.0",
         "title": "Salony API"
     },
+    "tags": [
+        {
+            "name": "V1",
+            "description": "First version of API"
+        }
+    ],
     "paths": {
         "/v1/register": {
             "post": {
+                "tags": [
+                    "V1"
+                ],
                 "description": "Post `User` object.\n",
                 "parameters": [
                     {
