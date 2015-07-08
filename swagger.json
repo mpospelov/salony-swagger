@@ -11,6 +11,37 @@
         }
     ],
     "paths": {
+        "/v1/verify_phone_code": {
+            "post": {
+                "tags": [
+                    "V1"
+                ],
+                "description": "Verify phone code sended received from reset_password SMS \n",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "formData",
+                        "required": true,
+                        "description": "Code received from SMS",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Code successfuly verified\n",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "default": "Code successfuly verified"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v1/register": {
             "post": {
                 "tags": [
@@ -102,9 +133,323 @@
                     }
                 }
             }
+        },
+        "/v1/feedback": {
+            "post": {
+                "tags": [
+                    "V1"
+                ],
+                "description": "Send feedback\n",
+                "parameters": [
+                    {
+                        "name": "message",
+                        "in": "formData",
+                        "required": true,
+                        "description": "Message sended from feedback text box",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Feedback successfully created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "default": "Feedback successfully created\n"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/favorites": {
+            "get": {
+                "tags": [
+                    "V1"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of `Users`s favorites `Salon`s\n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Salon"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Add `Salon` to `User` favorite list\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "`id` of `Salony`",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`Salony` succesfully added"
+                    }
+                }
+            }
+        },
+        "/v1/user/upcoming_appointments": {
+            "get": {
+                "tags": [
+                    "V1"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of `User`s upcoming `Appointment`s\n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Appointment"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/past_appointments": {
+            "get": {
+                "tags": [
+                    "V1"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of `User`s past `Appointment`s\n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Appointment"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/add_credit_card": {
+            "post": {
+                "tags": [
+                    "V1"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "number": {
+                                    "type": "string"
+                                },
+                                "expiration_year": {
+                                    "type": "string"
+                                },
+                                "expiration_month": {
+                                    "type": "string"
+                                },
+                                "security_code": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Credit card successfully added",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/categories": {
+            "get": {
+                "tags": [
+                    "V1"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of all `Category`s\n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Category"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/appointments/{id}": {
+            "delete": {
+                "description": "Cancel `User` `Appointment` \n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Appointment id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Appointment successfuly deleted"
+                    }
+                }
+            }
+        },
+        "/v1/salony": {
+            "get": {
+                "description": "List of `Salon`y.\nIf filters are passed then you will receive filtered\nlist of `Salon`y.\n",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "q": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name_start": {
+                                            "type": "string"
+                                        },
+                                        "city_eq": {
+                                            "type": "string"
+                                        },
+                                        "neighbourhood_eq": {
+                                            "type": "string"
+                                        },
+                                        "price_gteq": {
+                                            "type": "number",
+                                            "format": "integer"
+                                        },
+                                        "price_lteq": {
+                                            "type": "number",
+                                            "format": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of `Salon`y",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Salon"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/salony/{id}": {
+            "get": {
+                "description": "Details of concrete `Salon`\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Salon",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of `Salon`",
+                        "schema": {
+                            "$ref": "#/definitions/Salon"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/salony/{id}/book": {
+            "post": {
+                "description": "Book list of selected `Services`\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "services": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "stylist_id": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Booking successfuly created",
+                        "schema": {
+                            "$ref": "#/definitions/Appointment"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "OpeningHours": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "number",
+                    "format": "integer",
+                    "default": 0
+                },
+                "to": {
+                    "type": "number",
+                    "format": "integer",
+                    "default": 24
+                }
+            }
+        },
         "User": {
             "type": "object",
             "properties": {
@@ -125,6 +470,166 @@
                 },
                 "birthday": {
                     "type": "string"
+                }
+            }
+        },
+        "Salon": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "address_1": {
+                    "type": "string"
+                },
+                "address_2": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "longitude": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "lattitude": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "instagram": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                },
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Service"
+                    }
+                },
+                "category": {
+                    "$ref": "#/definitions/Category"
+                },
+                "fans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/User"
+                    }
+                },
+                "stylists": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Stylist"
+                    }
+                },
+                "hours": {
+                    "type": "object",
+                    "properties": {
+                        "weekdays": {
+                            "$ref": "#/definitions/OpeningHours"
+                        },
+                        "sut": {
+                            "$ref": "#/definitions/OpeningHours"
+                        },
+                        "san": {
+                            "$ref": "#/definitions/OpeningHours"
+                        }
+                    }
+                }
+            }
+        },
+        "Service": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "is_home": {
+                    "type": "boolean"
+                },
+                "duration": {
+                    "type": "integer"
+                },
+                "cost": {
+                    "type": "string"
+                },
+                "stylist": {
+                    "$ref": "#/definitions/Stylist"
+                },
+                "salon": {
+                    "$ref": "#/definitions/Salon"
+                },
+                "category": {
+                    "$ref": "#/definitions/Category"
+                },
+                "stylists": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Stylist"
+                    }
+                }
+            }
+        },
+        "Category": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "default": "Nicole"
+                }
+            }
+        },
+        "Stylist": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "appointments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Appointment"
+                    }
+                },
+                "service": {
+                    "$ref": "#/definitions/Service"
+                },
+                "salon": {
+                    "$ref": "#/definitions/Salon"
+                }
+            }
+        },
+        "Appointment": {
+            "type": "object",
+            "properties": {
+                "starts_at": {
+                    "type": "string",
+                    "format": "dateTime"
+                },
+                "deposit": {
+                    "type": "string"
+                },
+                "service": {
+                    "$ref": "#/definitions/Service"
+                },
+                "salon": {
+                    "$ref": "#/definitions/Salon"
+                },
+                "user": {
+                    "$ref": "#/definitions/User"
                 }
             }
         }
