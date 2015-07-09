@@ -209,7 +209,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of `User`s upcoming `Appointment`s\n",
+                        "description": "List of `User`s upcoming `Appointment`s \nordered by created_at in DESC\n",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -227,7 +227,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of `User`s past `Appointment`s\n",
+                        "description": "List of `User`s past `Appointment`s\nordered by created_at in DESC\n",
                         "schema": {
                             "type": "array",
                             "items": {
