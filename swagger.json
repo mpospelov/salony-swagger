@@ -450,6 +450,14 @@
         }
     },
     "definitions": {
+        "Image": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
         "OpeningHours": {
             "type": "object",
             "properties": {
@@ -549,6 +557,9 @@
                     "items": {
                         "$ref": "#/definitions/Stylist"
                     }
+                },
+                "image": {
+                    "$ref": "#/definitions/Image"
                 },
                 "hours": {
                     "type": "object",
