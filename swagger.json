@@ -325,7 +325,7 @@
                 }
             }
         },
-        "/v1/salony": {
+        "/v1/salons": {
             "get": {
                 "tags": [
                     "V1"
@@ -378,7 +378,7 @@
                 }
             }
         },
-        "/v1/salony/{id}": {
+        "/v1/salons/{id}": {
             "get": {
                 "tags": [
                     "V1"
@@ -402,7 +402,7 @@
                 }
             }
         },
-        "/v1/salony/{id}/book": {
+        "/v1/salons/{id}/book": {
             "post": {
                 "tags": [
                     "V1"
@@ -558,7 +558,10 @@
                         "$ref": "#/definitions/Stylist"
                     }
                 },
-                "image": {
+                "thumb_image": {
+                    "$ref": "#/definitions/Image"
+                },
+                "banner_image": {
                     "$ref": "#/definitions/Image"
                 },
                 "hours": {
