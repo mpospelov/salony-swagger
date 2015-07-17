@@ -6,6 +6,9 @@
         "description": "All the output responses are in sync with \nJSONapi format - http://jsonapi.org/format/\n"
     },
     "host": "52.28.173.180",
+    "produces": [
+        "application/json"
+    ],
     "tags": [
         {
             "name": "V1",
