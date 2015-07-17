@@ -340,6 +340,9 @@
                     "Implemented"
                 ],
                 "description": "List of `Salon`s.\nIf filters are passed then you will receive filtered\nlist of `Salon`s.\n",
+                "produces": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
                         "name": "body",
@@ -614,21 +617,6 @@
                 },
                 "cost": {
                     "type": "string"
-                },
-                "stylist": {
-                    "$ref": "#/definitions/Stylist"
-                },
-                "salon": {
-                    "$ref": "#/definitions/Salon"
-                },
-                "category": {
-                    "$ref": "#/definitions/Category"
-                },
-                "stylists": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Stylist"
-                    }
                 }
             }
         },
@@ -652,12 +640,6 @@
                     "items": {
                         "$ref": "#/definitions/Appointment"
                     }
-                },
-                "service": {
-                    "$ref": "#/definitions/Service"
-                },
-                "salon": {
-                    "$ref": "#/definitions/Salon"
                 }
             }
         },
@@ -670,15 +652,6 @@
                 },
                 "deposit": {
                     "type": "string"
-                },
-                "service": {
-                    "$ref": "#/definitions/Service"
-                },
-                "salon": {
-                    "$ref": "#/definitions/Salon"
-                },
-                "user": {
-                    "$ref": "#/definitions/User"
                 }
             }
         }
