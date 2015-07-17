@@ -339,7 +339,7 @@
                     "V1",
                     "Implemented"
                 ],
-                "description": "List of `Salon`s.\nIf filters are passed then you will receive filtered\nlist of `Salon`s.\n",
+                "description": "List of `Salon`s.\nIf filters are passed then you will receive filtered\nlist of `Salon`s. You can pass pagination parameters via\n`page` and `per_page`. There are pagination headers.\n",
                 "parameters": [
                     {
                         "name": "page",
@@ -387,13 +387,62 @@
                 "responses": {
                     "200": {
                         "description": "List of `Salon`s",
+                        "headers": {
+                            "Link": {
+                                "type": "string",
+                                "description": "Link to the next and last pages"
+                            },
+                            "Per-Page": {
+                                "type": "integer",
+                                "description": "Number of `Salon`s presented on page"
+                            },
+                            "Total": {
+                                "type": "integer",
+                                "description": "Total number of `Salon`s which matched the request"
+                            }
+                        },
                         "schema": {
+                            "type": "object",
                             "properties": {
                                 "data": {
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/definitions/SalonJSON"
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "V1"
+                ],
+                "description": "Create a `Salon`.\n",
+                "parameters": [
+                    {
+                        "name": "salon",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "salon": {
+                                    "$ref": "#/definitions/Salon"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/SalonJSON"
                                 }
                             }
                         }
@@ -589,10 +638,10 @@
                         "weekdays": {
                             "$ref": "#/definitions/OpeningHours"
                         },
-                        "sut": {
+                        "sat": {
                             "$ref": "#/definitions/OpeningHours"
                         },
-                        "san": {
+                        "sun": {
                             "$ref": "#/definitions/OpeningHours"
                         }
                     }
