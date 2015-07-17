@@ -2,12 +2,17 @@
     "swagger": "2.0",
     "info": {
         "version": "0.1.0",
-        "title": "Salony API"
+        "title": "Salony API",
+        "description": "All the output responses are in sync with \nJSONapi format - http://jsonapi.org/format/\n"
     },
+    "host": "52.28.173.180",
     "tags": [
         {
             "name": "V1",
             "description": "First version of API"
+        },
+        {
+            "name": "Implemented"
         }
     ],
     "paths": {
@@ -328,9 +333,10 @@
         "/v1/salons": {
             "get": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "Implemented"
                 ],
-                "description": "List of `Salon`y.\nIf filters are passed then you will receive filtered\nlist of `Salon`y.\n",
+                "description": "List of `Salon`s.\nIf filters are passed then you will receive filtered\nlist of `Salon`s.\n",
                 "parameters": [
                     {
                         "name": "body",
@@ -339,8 +345,19 @@
                         "schema": {
                             "type": "object",
                             "properties": {
+                                "page": {
+                                    "description": "Page of requested `Salon`s to be listed. 1 is default\n",
+                                    "type": "number",
+                                    "format": "integer"
+                                },
+                                "per_page": {
+                                    "description": "Number of `Salon`s requested on one page. 25 is default \n",
+                                    "type": "number",
+                                    "format": "integer"
+                                },
                                 "q": {
                                     "type": "object",
+                                    "description": "filter parameters",
                                     "properties": {
                                         "name_start": {
                                             "type": "string"
@@ -367,11 +384,15 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of `Salon`y",
+                        "description": "List of `Salon`s",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Salon"
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SalonJSON"
+                                    }
+                                }
                             }
                         }
                     }
@@ -381,7 +402,8 @@
         "/v1/salons/{id}": {
             "get": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "Implemented"
                 ],
                 "description": "Details of concrete `Salon`\n",
                 "parameters": [
@@ -396,7 +418,12 @@
                     "200": {
                         "description": "Details of `Salon`",
                         "schema": {
-                            "$ref": "#/definitions/Salon"
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/SalonJSON"
+                                }
+                            }
                         }
                     }
                 }
@@ -496,6 +523,23 @@
                 }
             }
         },
+        "SalonJSON": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "format": "integer",
+                    "default": 1
+                },
+                "type": {
+                    "type": "string",
+                    "default": "salons"
+                },
+                "attributes": {
+                    "$ref": "#/definitions/Salon"
+                }
+            }
+        },
         "Salon": {
             "type": "object",
             "properties": {
@@ -536,33 +580,6 @@
                 },
                 "website": {
                     "type": "string"
-                },
-                "services": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Service"
-                    }
-                },
-                "category": {
-                    "$ref": "#/definitions/Category"
-                },
-                "fans": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/User"
-                    }
-                },
-                "stylists": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Stylist"
-                    }
-                },
-                "thumb_image": {
-                    "$ref": "#/definitions/Image"
-                },
-                "banner_image": {
-                    "$ref": "#/definitions/Image"
                 },
                 "hours": {
                     "type": "object",
