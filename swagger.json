@@ -345,15 +345,13 @@
                         "name": "page",
                         "in": "query",
                         "required": false,
-                        "type": "number",
-                        "format": "integer"
+                        "type": "integer"
                     },
                     {
                         "name": "per_page",
                         "in": "query",
                         "required": false,
-                        "type": "number",
-                        "format": "integer"
+                        "type": "integer"
                     },
                     {
                         "name": "q[name_start]",
@@ -377,15 +375,13 @@
                         "name": "q[price_gteq]",
                         "in": "query",
                         "required": false,
-                        "type": "number",
-                        "format": "integer"
+                        "type": "integer"
                     },
                     {
                         "name": "q[price_lteq]",
                         "in": "query",
                         "required": false,
-                        "type": "number",
-                        "format": "integer"
+                        "type": "integer"
                     }
                 ],
                 "responses": {
