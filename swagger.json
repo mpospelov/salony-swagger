@@ -422,6 +422,7 @@
             "post": {
                 "tags": [
                     "V1",
+                    "Implemented",
                     "Salons"
                 ],
                 "description": "Create a `Salon`.\n",
