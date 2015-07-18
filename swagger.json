@@ -684,6 +684,23 @@
                 "lat": {
                     "type": "number",
                     "format": "float"
+                },
+                "image_urls": {
+                    "type": "object",
+                    "properties": {
+                        "thumb": {
+                            "type": "string"
+                        },
+                        "medium": {
+                            "type": "string"
+                        },
+                        "large": {
+                            "type": "string"
+                        },
+                        "original": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
