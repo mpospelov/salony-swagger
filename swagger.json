@@ -434,7 +434,7 @@
                             "type": "object",
                             "properties": {
                                 "salon": {
-                                    "$ref": "#/definitions/SalonAttributes"
+                                    "$ref": "#/definitions/Salon"
                                 }
                             }
                         }
@@ -598,33 +598,6 @@
                 }
             }
         },
-        "SalonAttributes": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/Salon"
-                },
-                {
-                    "type": "object",
-                    "properties": {
-                        "images_attributes": {
-                            "type": "object",
-                            "properties": {
-                                "file": {
-                                    "type": "string",
-                                    "format": "byte"
-                                }
-                            }
-                        },
-                        "services_attributes": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/ServiceAttributes"
-                            }
-                        }
-                    }
-                }
-            ]
-        },
         "Salon": {
             "type": "object",
             "properties": {
@@ -655,14 +628,6 @@
                 "phone": {
                     "type": "string"
                 },
-                "longitude": {
-                    "type": "number",
-                    "format": "float"
-                },
-                "lattitude": {
-                    "type": "number",
-                    "format": "float"
-                },
                 "description": {
                     "type": "string"
                 },
@@ -672,10 +637,30 @@
                 "website": {
                     "type": "string"
                 },
+                "lng": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "lat": {
+                    "type": "number",
+                    "format": "float"
+                },
                 "hours": {
                     "type": "object",
                     "properties": {
-                        "weekdays": {
+                        "mon": {
+                            "$ref": "#/definitions/OpeningHours"
+                        },
+                        "tue": {
+                            "$ref": "#/definitions/OpeningHours"
+                        },
+                        "wed": {
+                            "$ref": "#/definitions/OpeningHours"
+                        },
+                        "thu": {
+                            "$ref": "#/definitions/OpeningHours"
+                        },
+                        "fri": {
                             "$ref": "#/definitions/OpeningHours"
                         },
                         "sat": {
