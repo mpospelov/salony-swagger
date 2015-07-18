@@ -16,6 +16,9 @@
         },
         {
             "name": "Implemented"
+        },
+        {
+            "name": "Salons"
         }
     ],
     "paths": {
@@ -337,6 +340,7 @@
             "get": {
                 "tags": [
                     "V1",
+                    "Salons",
                     "Implemented"
                 ],
                 "description": "List of `Salon`s.\nIf filters are passed then you will receive filtered\nlist of `Salon`s. You can pass pagination parameters via\n`page` and `per_page`. There are pagination headers.\n",
@@ -417,19 +421,20 @@
             },
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "Salons"
                 ],
                 "description": "Create a `Salon`.\n",
                 "parameters": [
                     {
                         "name": "salon",
                         "in": "body",
-                        "required": true,
+                        "description": "Salon",
                         "schema": {
                             "type": "object",
                             "properties": {
                                 "salon": {
-                                    "$ref": "#/definitions/Salon"
+                                    "$ref": "#/definitions/SalonAttributes"
                                 }
                             }
                         }
@@ -454,6 +459,7 @@
             "get": {
                 "tags": [
                     "V1",
+                    "Salons",
                     "Implemented"
                 ],
                 "description": "Details of concrete `Salon`\n",
@@ -483,7 +489,8 @@
         "/v1/salons/{id}/book": {
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "Salons"
                 ],
                 "description": "Book list of selected `Services`\n",
                 "parameters": [
@@ -591,6 +598,33 @@
                 }
             }
         },
+        "SalonAttributes": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/Salon"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "images_attributes": {
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "type": "string",
+                                    "format": "byte"
+                                }
+                            }
+                        },
+                        "services_attributes": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ServiceAttributes"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
         "Salon": {
             "type": "object",
             "properties": {
@@ -611,6 +645,12 @@
                 },
                 "country": {
                     "type": "string"
+                },
+                "zip_code": {
+                    "type": "string"
+                },
+                "is_home": {
+                    "type": "boolean"
                 },
                 "phone": {
                     "type": "string"
@@ -648,6 +688,24 @@
                 }
             }
         },
+        "ServiceAttributes": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/Service"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "category_id": {
+                            "type": "integer"
+                        },
+                        "id": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            ]
+        },
         "Service": {
             "type": "object",
             "properties": {
@@ -660,7 +718,7 @@
                 "duration": {
                     "type": "integer"
                 },
-                "cost": {
+                "price": {
                     "type": "string"
                 }
             }
