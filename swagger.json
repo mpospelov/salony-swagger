@@ -644,32 +644,6 @@
                 "lat": {
                     "type": "number",
                     "format": "float"
-                },
-                "hours": {
-                    "type": "object",
-                    "properties": {
-                        "mon": {
-                            "$ref": "#/definitions/OpeningHours"
-                        },
-                        "tue": {
-                            "$ref": "#/definitions/OpeningHours"
-                        },
-                        "wed": {
-                            "$ref": "#/definitions/OpeningHours"
-                        },
-                        "thu": {
-                            "$ref": "#/definitions/OpeningHours"
-                        },
-                        "fri": {
-                            "$ref": "#/definitions/OpeningHours"
-                        },
-                        "sat": {
-                            "$ref": "#/definitions/OpeningHours"
-                        },
-                        "sun": {
-                            "$ref": "#/definitions/OpeningHours"
-                        }
-                    }
                 }
             }
         },
