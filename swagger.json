@@ -5,7 +5,7 @@
         "title": "Salony API",
         "description": "All the output responses are in sync with \nJSONapi format - http://jsonapi.org/format/\n"
     },
-    "host": "localhost:3000",
+    "host": "52.28.173.180",
     "produces": [
         "application/json"
     ],
@@ -544,6 +544,7 @@
             "patch": {
                 "tags": [
                     "V1",
+                    "Implemented",
                     "Salons"
                 ],
                 "description": "Set image of `Salon`",
