@@ -565,7 +565,59 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Details of `Salon`",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/SalonJSON"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/salons/{id}/set_hours": {
+            "patch": {
+                "tags": [
+                    "V1",
+                    "Implemented",
+                    "Salons"
+                ],
+                "description": "Set working hours for `Salon`",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "type": "string"
+                    },
+                    {
+                        "name": "hours",
+                        "in": "body",
+                        "description": "hours",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "hours": {
+                                    "$ref": "#/definitions/SalonHours"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of `Salon`",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/SalonJSON"
+                                }
+                            }
+                        }
                     }
                 }
             }
