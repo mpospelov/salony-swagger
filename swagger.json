@@ -5,7 +5,7 @@
         "title": "Salony API",
         "description": "All the output responses are in sync with \nJSONapi format - http://jsonapi.org/format/\n"
     },
-    "host": "52.28.173.180",
+    "host": "localhost:3000",
     "produces": [
         "application/json"
     ],
@@ -536,6 +536,35 @@
                         "schema": {
                             "$ref": "#/definitions/Appointment"
                         }
+                    }
+                }
+            }
+        },
+        "/v1/salons/{id}/set_image": {
+            "patch": {
+                "tags": [
+                    "V1",
+                    "Salons"
+                ],
+                "description": "Set image of `Salon`",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File",
+                        "type": "file",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }
