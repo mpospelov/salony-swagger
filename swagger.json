@@ -445,6 +445,12 @@
                             "properties": {
                                 "data": {
                                     "$ref": "#/definitions/SalonJSON"
+                                },
+                                "included": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Service"
+                                    }
                                 }
                             }
                         }
@@ -744,32 +750,6 @@
                 }
             }
         },
-        "SalonHours": {
-            "type": "object",
-            "properties": {
-                "mon": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "tue": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "wed": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "thu": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "fri": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "sat": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "sun": {
-                    "$ref": "#/definitions/OpeningHours"
-                }
-            }
-        },
         "SalonJSON": {
             "type": "object",
             "properties": {
@@ -791,6 +771,9 @@
                             "$ref": "#/definitions/SalonHours"
                         }
                     ]
+                },
+                "relationships": {
+                    "$ref": "#/definitions/SalonRelations"
                 }
             }
         },
@@ -855,6 +838,52 @@
                         },
                         "original": {
                             "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "SalonHours": {
+            "type": "object",
+            "properties": {
+                "mon": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "tue": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "wed": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "thu": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "fri": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "sat": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "sun": {
+                    "$ref": "#/definitions/OpeningHours"
+                }
+            }
+        },
+        "SalonRelations": {
+            "type": "object",
+            "properties": {
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "default": "services"
+                            },
+                            "id": {
+                                "type": "integer"
+                            }
                         }
                     }
                 }
