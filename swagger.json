@@ -5,7 +5,7 @@
         "title": "Salony API",
         "description": "All the output responses are in sync with \nJSONapi format - http://jsonapi.org/format/\n"
     },
-    "host": "52.28.173.180",
+    "host": "staging.salony.com",
     "produces": [
         "application/json"
     ],
@@ -22,10 +22,12 @@
         }
     ],
     "paths": {
-        "/v1/verify_phone_code": {
+        "/v1/user/verify_phone_code": {
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "User",
+                    "Session"
                 ],
                 "description": "Verify phone code sended received from reset_password SMS \n",
                 "parameters": [
@@ -53,10 +55,12 @@
                 }
             }
         },
-        "/v1/register": {
+        "/v1/user/register": {
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "User",
+                    "Session"
                 ],
                 "description": "Post `User` object.\n",
                 "parameters": [
@@ -85,10 +89,12 @@
                 }
             }
         },
-        "/v1/login": {
+        "/v1/user/login": {
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "User",
+                    "Session"
                 ],
                 "description": "Login `User` with phone and password.\n",
                 "parameters": [
@@ -115,10 +121,12 @@
                 }
             }
         },
-        "/v1/reset_password": {
+        "/v1/user/reset_password": {
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "User",
+                    "Session"
                 ],
                 "description": "Send reset password request.\n",
                 "parameters": [
@@ -138,37 +146,6 @@
                                 "message": {
                                     "type": "string",
                                     "default": "You should receive SMS with your new password\n"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/feedback": {
-            "post": {
-                "tags": [
-                    "V1"
-                ],
-                "description": "Send feedback\n",
-                "parameters": [
-                    {
-                        "name": "message",
-                        "in": "formData",
-                        "required": true,
-                        "description": "Message sended from feedback text box",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Feedback successfully created",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": {
-                                    "type": "string",
-                                    "default": "Feedback successfully created\n"
                                 }
                             }
                         }
@@ -296,24 +273,6 @@
                 }
             }
         },
-        "/v1/categories": {
-            "get": {
-                "tags": [
-                    "V1"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "List of all `Category`s\n",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Category"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/v1/appointments/{id}": {
             "delete": {
                 "tags": [
@@ -358,31 +317,31 @@
                         "type": "integer"
                     },
                     {
-                        "name": "q[name_start]",
+                        "name": "filter[name_start]",
                         "in": "query",
                         "required": false,
                         "type": "string"
                     },
                     {
-                        "name": "q[city_eq]",
+                        "name": "filter[city_eq]",
                         "in": "query",
                         "required": false,
                         "type": "string"
                     },
                     {
-                        "name": "q[neighbourhood_eq]",
+                        "name": "filter[neighbourhood_eq]",
                         "in": "query",
                         "required": false,
                         "type": "string"
                     },
                     {
-                        "name": "q[price_gteq]",
+                        "name": "filter[price_gteq]",
                         "in": "query",
                         "required": false,
                         "type": "integer"
                     },
                     {
-                        "name": "q[price_lteq]",
+                        "name": "filter[price_lteq]",
                         "in": "query",
                         "required": false,
                         "type": "integer"
@@ -488,6 +447,90 @@
                                     "$ref": "#/definitions/SalonJSON"
                                 }
                             }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "V1",
+                    "Salons",
+                    "Implemented"
+                ],
+                "parameters": [
+                    {
+                        "name": "salon",
+                        "in": "body",
+                        "description": "Salon",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "salon": {
+                                    "$ref": "#/definitions/Salon"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "description": "Update `Salon`",
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/SalonJSON"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation is not passed",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorsJSON"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "V1",
+                    "Salons",
+                    "Implemented"
+                ],
+                "parameters": [
+                    {
+                        "name": "salon",
+                        "in": "body",
+                        "description": "Salon",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "salon": {
+                                    "$ref": "#/definitions/Salon"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "description": "Update `Salon`",
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/SalonJSON"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation is not passed",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorsJSON"
                         }
                     }
                 }
@@ -615,6 +658,37 @@
                             "properties": {
                                 "data": {
                                     "$ref": "#/definitions/SalonJSON"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/feedback": {
+            "post": {
+                "tags": [
+                    "V1"
+                ],
+                "description": "Send feedback\n",
+                "parameters": [
+                    {
+                        "name": "message",
+                        "in": "formData",
+                        "required": true,
+                        "description": "Message sended from feedback text box",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Feedback successfully created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "default": "Feedback successfully created\n"
                                 }
                             }
                         }
@@ -786,28 +860,10 @@
                 }
             }
         },
-        "ServiceAttributes": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/Service"
-                },
-                {
-                    "type": "object",
-                    "properties": {
-                        "category_id": {
-                            "type": "integer"
-                        },
-                        "id": {
-                            "type": "integer"
-                        }
-                    }
-                }
-            ]
-        },
         "Service": {
             "type": "object",
             "properties": {
-                "title": {
+                "name": {
                     "type": "string"
                 },
                 "is_home": {
@@ -818,15 +874,9 @@
                 },
                 "price": {
                     "type": "string"
-                }
-            }
-        },
-        "Category": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "default": "Nicole"
+                },
+                "category_name": {
+                    "type": "string"
                 }
             }
         },

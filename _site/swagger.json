@@ -22,10 +22,12 @@
         }
     ],
     "paths": {
-        "/v1/verify_phone_code": {
+        "/v1/user/verify_phone_code": {
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "User",
+                    "Session"
                 ],
                 "description": "Verify phone code sended received from reset_password SMS \n",
                 "parameters": [
@@ -53,10 +55,12 @@
                 }
             }
         },
-        "/v1/register": {
+        "/v1/user/register": {
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "User",
+                    "Session"
                 ],
                 "description": "Post `User` object.\n",
                 "parameters": [
@@ -85,10 +89,12 @@
                 }
             }
         },
-        "/v1/login": {
+        "/v1/user/login": {
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "User",
+                    "Session"
                 ],
                 "description": "Login `User` with phone and password.\n",
                 "parameters": [
@@ -115,10 +121,12 @@
                 }
             }
         },
-        "/v1/reset_password": {
+        "/v1/user/reset_password": {
             "post": {
                 "tags": [
-                    "V1"
+                    "V1",
+                    "User",
+                    "Session"
                 ],
                 "description": "Send reset password request.\n",
                 "parameters": [
