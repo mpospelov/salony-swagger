@@ -465,6 +465,12 @@
                 ],
                 "parameters": [
                     {
+                        "name": "id",
+                        "required": true,
+                        "type": "string",
+                        "in": "path"
+                    },
+                    {
                         "name": "salon",
                         "in": "body",
                         "description": "Salon",
@@ -506,6 +512,12 @@
                     "Implemented"
                 ],
                 "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string"
+                    },
                     {
                         "name": "salon",
                         "in": "body",
