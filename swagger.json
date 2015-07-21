@@ -552,6 +552,30 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "V1",
+                    "Salons",
+                    "Implemented"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "type": "string"
+                    }
+                ],
+                "description": "Delete salon",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/SalonJSON"
+                        }
+                    }
+                }
             }
         },
         "/v1/salons/{id}/book": {
