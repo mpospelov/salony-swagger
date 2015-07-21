@@ -5,7 +5,7 @@
         "title": "Salony API",
         "description": "All the output responses are in sync with \nJSONapi format - http://jsonapi.org/format/\n"
     },
-    "host": "52.28.173.180",
+    "host": "staging.salony.com",
     "produces": [
         "application/json"
     ],
@@ -153,37 +153,6 @@
                 }
             }
         },
-        "/v1/feedback": {
-            "post": {
-                "tags": [
-                    "V1"
-                ],
-                "description": "Send feedback\n",
-                "parameters": [
-                    {
-                        "name": "message",
-                        "in": "formData",
-                        "required": true,
-                        "description": "Message sended from feedback text box",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Feedback successfully created",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": {
-                                    "type": "string",
-                                    "default": "Feedback successfully created\n"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/v1/user/favorites": {
             "get": {
                 "tags": [
@@ -304,24 +273,6 @@
                 }
             }
         },
-        "/v1/categories": {
-            "get": {
-                "tags": [
-                    "V1"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "List of all `Category`s\n",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Category"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/v1/appointments/{id}": {
             "delete": {
                 "tags": [
@@ -366,31 +317,31 @@
                         "type": "integer"
                     },
                     {
-                        "name": "q[name_start]",
+                        "name": "filter[name_start]",
                         "in": "query",
                         "required": false,
                         "type": "string"
                     },
                     {
-                        "name": "q[city_eq]",
+                        "name": "filter[city_eq]",
                         "in": "query",
                         "required": false,
                         "type": "string"
                     },
                     {
-                        "name": "q[neighbourhood_eq]",
+                        "name": "filter[neighbourhood_eq]",
                         "in": "query",
                         "required": false,
                         "type": "string"
                     },
                     {
-                        "name": "q[price_gteq]",
+                        "name": "filter[price_gteq]",
                         "in": "query",
                         "required": false,
                         "type": "integer"
                     },
                     {
-                        "name": "q[price_lteq]",
+                        "name": "filter[price_lteq]",
                         "in": "query",
                         "required": false,
                         "type": "integer"
@@ -494,8 +445,98 @@
                             "properties": {
                                 "data": {
                                     "$ref": "#/definitions/SalonJSON"
+                                },
+                                "included": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Service"
+                                    }
                                 }
                             }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "V1",
+                    "Salons",
+                    "Implemented"
+                ],
+                "parameters": [
+                    {
+                        "name": "salon",
+                        "in": "body",
+                        "description": "Salon",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "salon": {
+                                    "$ref": "#/definitions/Salon"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "description": "Update `Salon`",
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/SalonJSON"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation is not passed",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorsJSON"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "V1",
+                    "Salons",
+                    "Implemented"
+                ],
+                "parameters": [
+                    {
+                        "name": "salon",
+                        "in": "body",
+                        "description": "Salon",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "salon": {
+                                    "$ref": "#/definitions/Salon"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "description": "Update `Salon`",
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/SalonJSON"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation is not passed",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorsJSON"
                         }
                     }
                 }
@@ -629,6 +670,37 @@
                     }
                 }
             }
+        },
+        "/v1/feedback": {
+            "post": {
+                "tags": [
+                    "V1"
+                ],
+                "description": "Send feedback\n",
+                "parameters": [
+                    {
+                        "name": "message",
+                        "in": "formData",
+                        "required": true,
+                        "description": "Message sended from feedback text box",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Feedback successfully created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "default": "Feedback successfully created\n"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -678,32 +750,6 @@
                 }
             }
         },
-        "SalonHours": {
-            "type": "object",
-            "properties": {
-                "mon": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "tue": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "wed": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "thu": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "fri": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "sat": {
-                    "$ref": "#/definitions/OpeningHours"
-                },
-                "sun": {
-                    "$ref": "#/definitions/OpeningHours"
-                }
-            }
-        },
         "SalonJSON": {
             "type": "object",
             "properties": {
@@ -717,14 +763,10 @@
                     "default": "salons"
                 },
                 "attributes": {
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/Salon"
-                        },
-                        {
-                            "$ref": "#/definitions/SalonHours"
-                        }
-                    ]
+                    "$ref": "#/definitions/SalonAttributes"
+                },
+                "relationships": {
+                    "$ref": "#/definitions/SalonRelations"
                 }
             }
         },
@@ -794,28 +836,71 @@
                 }
             }
         },
-        "ServiceAttributes": {
+        "SalonHours": {
+            "type": "object",
+            "properties": {
+                "mon": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "tue": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "wed": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "thu": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "fri": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "sat": {
+                    "$ref": "#/definitions/OpeningHours"
+                },
+                "sun": {
+                    "$ref": "#/definitions/OpeningHours"
+                }
+            }
+        },
+        "SalonAttributes": {
             "allOf": [
                 {
-                    "$ref": "#/definitions/Service"
+                    "$ref": "#/definitions/Salon"
                 },
                 {
                     "type": "object",
                     "properties": {
-                        "category_id": {
-                            "type": "integer"
-                        },
-                        "id": {
-                            "type": "integer"
+                        "hours": {
+                            "$ref": "#/definitions/SalonHours"
                         }
                     }
                 }
             ]
         },
+        "SalonRelations": {
+            "type": "object",
+            "properties": {
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "default": "services"
+                            },
+                            "id": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "Service": {
             "type": "object",
             "properties": {
-                "title": {
+                "name": {
                     "type": "string"
                 },
                 "is_home": {
@@ -826,15 +911,9 @@
                 },
                 "price": {
                     "type": "string"
-                }
-            }
-        },
-        "Category": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "default": "Nicole"
+                },
+                "category_name": {
+                    "type": "string"
                 }
             }
         },
