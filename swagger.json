@@ -60,6 +60,7 @@
                 "tags": [
                     "V1",
                     "User",
+                    "Implemented",
                     "Session"
                 ],
                 "description": "Post `User` object.\n",
@@ -367,7 +368,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "data": {
+                                "salons": {
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/definitions/SalonJSON"
@@ -406,7 +407,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "data": {
+                                "salon": {
                                     "$ref": "#/definitions/SalonJSON"
                                 }
                             }
@@ -443,14 +444,8 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "data": {
+                                "salon": {
                                     "$ref": "#/definitions/SalonJSON"
-                                },
-                                "included": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Service"
-                                    }
                                 }
                             }
                         }
@@ -491,7 +486,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "data": {
+                                "salon": {
                                     "$ref": "#/definitions/SalonJSON"
                                 }
                             }
@@ -539,7 +534,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "data": {
+                                "salon": {
                                     "$ref": "#/definitions/SalonJSON"
                                 }
                             }
@@ -572,7 +567,12 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/SalonJSON"
+                            "type": "object",
+                            "properties": {
+                                "salon": {
+                                    "$ref": "#/definitions/SalonJSON"
+                                }
+                            }
                         }
                     }
                 }
@@ -654,7 +654,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "data": {
+                                "salon": {
                                     "$ref": "#/definitions/SalonJSON"
                                 }
                             }
@@ -698,7 +698,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "data": {
+                                "salon": {
                                     "$ref": "#/definitions/SalonJSON"
                                 }
                             }
@@ -778,33 +778,42 @@
                 "password": {
                     "type": "string"
                 },
-                "mobile_number": {
+                "phone": {
                     "type": "string"
                 },
                 "birthday": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "date"
                 }
             }
         },
         "SalonJSON": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "number",
-                    "format": "integer",
-                    "default": 1
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "number",
+                            "format": "integer",
+                            "default": 1
+                        }
+                    }
                 },
-                "type": {
-                    "type": "string",
-                    "default": "salons"
+                {
+                    "$ref": "#/definitions/Salon"
                 },
-                "attributes": {
-                    "$ref": "#/definitions/SalonAttributes"
-                },
-                "relationships": {
+                {
                     "$ref": "#/definitions/SalonRelations"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "hours": {
+                            "$ref": "#/definitions/SalonHours"
+                        }
+                    }
                 }
-            }
+            ]
         },
         "Salon": {
             "type": "object",
@@ -897,21 +906,6 @@
                     "$ref": "#/definitions/OpeningHours"
                 }
             }
-        },
-        "SalonAttributes": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/Salon"
-                },
-                {
-                    "type": "object",
-                    "properties": {
-                        "hours": {
-                            "$ref": "#/definitions/SalonHours"
-                        }
-                    }
-                }
-            ]
         },
         "SalonRelations": {
             "type": "object",
