@@ -336,13 +336,13 @@
                         "type": "string"
                     },
                     {
-                        "name": "filter[price_gteq]",
+                        "name": "filter[min_price_gteq]",
                         "in": "query",
                         "required": false,
                         "type": "integer"
                     },
                     {
-                        "name": "filter[price_lteq]",
+                        "name": "filter[min_price_lteq]",
                         "in": "query",
                         "required": false,
                         "type": "integer"
@@ -861,6 +861,9 @@
                 "lat": {
                     "type": "number",
                     "format": "float"
+                },
+                "min_price": {
+                    "type": "integer"
                 },
                 "image_urls": {
                     "type": "object",
