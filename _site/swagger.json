@@ -810,6 +810,9 @@
                 "phone": {
                     "type": "string"
                 },
+                "country": {
+                    "type": "string"
+                },
                 "birthday": {
                     "type": "string",
                     "format": "date"
