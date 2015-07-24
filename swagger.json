@@ -27,7 +27,8 @@
                 "tags": [
                     "V1",
                     "User",
-                    "Session"
+                    "Session",
+                    "Implemented"
                 ],
                 "description": "Verify phone code sended received from reset_password SMS \n",
                 "parameters": [
@@ -45,9 +46,11 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "message": {
-                                    "type": "string",
-                                    "default": "Code successfuly verified"
+                                "user_phone": {
+                                    "type": "string"
+                                },
+                                "user_auth_token": {
+                                    "type": "string"
                                 }
                             }
                         }
