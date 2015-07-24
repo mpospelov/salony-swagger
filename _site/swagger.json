@@ -330,6 +330,32 @@
                         "type": "string"
                     },
                     {
+                        "name": "filter[services_category_name_eq]",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "description": "Filter by services category_name. You can use any category_name\nnot only from selector.\n",
+                        "enum": [
+                            "Threading",
+                            "Tanning",
+                            "Moroccan Bath",
+                            "Eyelashes",
+                            "Extensions",
+                            "Tattoo",
+                            "Henna",
+                            "Massage",
+                            "Waxing",
+                            "Hair Cut",
+                            "Hairdo",
+                            "Blowout",
+                            "Hair Color",
+                            "Hair Treatment",
+                            "Make Up",
+                            "Nails",
+                            "Facial"
+                        ]
+                    },
+                    {
                         "name": "filter[neighbourhood_eq]",
                         "in": "query",
                         "required": false,
