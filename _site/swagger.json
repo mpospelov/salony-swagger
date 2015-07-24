@@ -38,6 +38,12 @@
                         "required": true,
                         "description": "Code received from SMS",
                         "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
