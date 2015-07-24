@@ -5,7 +5,7 @@
         "title": "Salony API",
         "description": "All the output responses are in sync with \nJSONapi format - http://jsonapi.org/format/\n"
     },
-    "host": "staging.salony.com",
+    "host": "localhost:3000",
     "produces": [
         "application/json"
     ],

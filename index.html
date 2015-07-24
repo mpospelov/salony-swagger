@@ -38,15 +38,9 @@
       window.swaggerUi = new SwaggerUi({
         url: url,
         dom_id: "swagger-ui-container",
+        apisSorter: 'alpha',
         supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
         onComplete: function(swaggerApi, swaggerUi){
-          if(typeof initOAuth == "function") {
-            initOAuth({
-              clientId: "your-client-id",
-              realm: "your-realms",
-              appName: "Salony"
-            });
-          }
 
           $('pre code').each(function(i, e) {
             hljs.highlightBlock(e)
@@ -63,21 +57,22 @@
       });
 
       function addApiKeyAuthorization(){
-        var key = encodeURIComponent($('#input_apiKey')[0].value);
-        if(key && key.trim() != "") {
-            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("api_key", key, "query");
-            window.swaggerUi.api.clientAuthorizations.add("api_key", apiKeyAuth);
-            log("added key " + key);
+        var phone = $('#input_user_phone').val(),
+            auth_token = $('#input_user_auth_token').val();
+        if(phone.length && auth_token.length){
+          var auth_token_auth = new SwaggerClient.ApiKeyAuthorization(
+                "X-User-Token", auth_token, "header"
+              ),
+              phone_auth = new SwaggerClient.ApiKeyAuthorization(
+                "X-User-Phone", phone, "header"
+              );
+          window.swaggerUi.api.clientAuthorizations.add("token", auth_token_auth);
+          window.swaggerUi.api.clientAuthorizations.add("phone", phone_auth);
         }
       }
 
-      $('#input_apiKey').change(addApiKeyAuthorization);
-
-      // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
-      /*
-        var apiKey = "myApiKeyXXXX123456789";
-        $('#input_apiKey').val(apiKey);
-      */
+      $('#input_user_auth_token').change(addApiKeyAuthorization);
+      $('#input_user_phone').change(addApiKeyAuthorization);
 
       window.swaggerUi.load();
 
@@ -91,18 +86,48 @@
 </head>
 
 <body class="swagger-section">
-<div id='header'>
-  <div class="swagger-ui-wrap">
-    <a id="logo" href="http://swagger.io">swagger</a>
-    <form id='api_selector'>
-      <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
-      <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
-      <div class='input'><a id="explore" href="#">Explore</a></div>
-    </form>
+  <div id='header'>
+    <div class="swagger-ui-wrap">
+      <a id="logo" href="http://swagger.io">swagger</a>
+      <form id='api_selector'>
+        <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
+        <div class='input'><a id="explore" href="#">Explore</a></div>
+      </form>
+    </div>
   </div>
-</div>
 
-<div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
-<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+  <div class="authentication swagger-section">
+    <div class="swagger-ui-wrap">
+      <h2>Authentication form</h2>
+      <table class="fullwidth">
+        <tbody class="operation-params">
+          <tr>
+            <td class="code required"><label for="input_user_phone">User phone</label></td>
+            <td>
+              <input placeholder="User phone"
+                   id="input_user_phone" n
+                   ame="user_phone"
+                   type="text"/>
+
+            </td>
+          </tr>
+
+          <tr>
+            <td class="code required"><label for="input_user_auth_token">User auth token</label></td>
+            <td>
+              <input placeholder="User Auth Token"
+                     id="input_user_auth_token"
+                     name="user_auth_token"
+                     type="text"/>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
+  <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 </body>
 </html>
