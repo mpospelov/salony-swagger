@@ -5,7 +5,7 @@
         "title": "Salony API",
         "description": "All the output responses are in sync with \nJSONapi format - http://jsonapi.org/format/\n"
     },
-    "host": "localhost:3000",
+    "host": "staging.salony.com",
     "produces": [
         "application/json"
     ],
@@ -177,6 +177,9 @@
                                 "$ref": "#/definitions/Salon"
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             },
@@ -196,6 +199,9 @@
                 "responses": {
                     "200": {
                         "description": "`Salony` succesfully added"
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -214,6 +220,9 @@
                                 "$ref": "#/definitions/Appointment"
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -232,6 +241,9 @@
                                 "$ref": "#/definitions/Appointment"
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -279,6 +291,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -301,6 +316,9 @@
                 "responses": {
                     "200": {
                         "description": "Appointment successfuly deleted"
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -448,6 +466,9 @@
                             }
                         }
                     },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
+                    },
                     "422": {
                         "description": "Validation is not passed",
                         "schema": {
@@ -527,6 +548,9 @@
                             }
                         }
                     },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
+                    },
                     "422": {
                         "description": "Validation is not passed",
                         "schema": {
@@ -575,6 +599,9 @@
                             }
                         }
                     },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
+                    },
                     "422": {
                         "description": "Validation is not passed",
                         "schema": {
@@ -609,6 +636,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -656,6 +686,9 @@
                         "schema": {
                             "$ref": "#/definitions/Appointment"
                         }
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -694,6 +727,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -738,6 +774,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -769,6 +808,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/responses/Unauthorized"
                     }
                 }
             }
@@ -1024,6 +1066,20 @@
                     },
                     "title": {
                         "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "responses": {
+        "Unauthorized": {
+            "description": "You are not authorized for this kind of action. \nSend `X-User-Token` and `X-User-Phone` headers to authorize.\n",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "default": "You need to sign in or sign up before continuing."
                     }
                 }
             }
