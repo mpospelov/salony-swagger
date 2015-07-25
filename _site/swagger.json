@@ -50,15 +50,7 @@
                     "200": {
                         "description": "Code successfuly verified\n",
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "user_phone": {
-                                    "type": "string"
-                                },
-                                "user_auth_token": {
-                                    "type": "string"
-                                }
-                            }
+                            "$ref": "#/definitions/AuthCredentials"
                         }
                     }
                 }
@@ -104,12 +96,13 @@
                 "tags": [
                     "V1",
                     "User",
-                    "Session"
+                    "Session",
+                    "Implemented"
                 ],
                 "description": "Login `User` with phone and password.\n",
                 "parameters": [
                     {
-                        "name": "mobile_number",
+                        "name": "phone",
                         "required": true,
                         "in": "formData",
                         "type": "string"
@@ -125,7 +118,7 @@
                     "200": {
                         "description": "Login successful.",
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/AuthCredentials"
                         }
                     }
                 }
@@ -1067,6 +1060,17 @@
                     "title": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "AuthCredentials": {
+            "type": "object",
+            "properties": {
+                "user_phone": {
+                    "type": "string"
+                },
+                "user_auth_token": {
+                    "type": "string"
                 }
             }
         }
