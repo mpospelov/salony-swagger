@@ -3,7 +3,7 @@
     "info": {
         "version": "0.1.0",
         "title": "Salony API",
-        "description": "All the output responses are in sync with \nJSONapi format - http://jsonapi.org/format/\n"
+        "description": "Salony API documentation"
     },
     "host": "staging.salony.com",
     "produces": [
